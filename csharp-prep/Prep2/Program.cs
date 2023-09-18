@@ -6,7 +6,7 @@ class Program
     {
         //Prompt user for score
         Console.WriteLine("What is your score?");
-        int score = int.Parse(Console.ReadLine());
+        float score = int.Parse(Console.ReadLine());
 
         //If statements determine which letter grade to assign and whether the user passed or failed
         string letter = "";
