@@ -31,6 +31,6 @@ class Program
             }
         }
 
-        Console.WriteLine("Congratulations! You guessed right");
+        Console.WriteLine("Congratulations! You guessed right!");
     }
 }
