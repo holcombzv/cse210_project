@@ -5,7 +5,11 @@ class Program
 {
     static void Main(string[] args) {
         bool exit = false;
+        bool journalLoaded = false;
         while (exit == false) {
+            Prompt prompts = loadPrompts();
+            Journal journal = new Journal("", "");
+
             //Main menu
             int selection = mainMenu();
 
@@ -16,7 +20,39 @@ class Program
 
             //Option 2: Load journal
             if (selection == 2) {
-                loadJournal();
+                journal = loadJournal();
+                journalLoaded = true;
+            }
+
+            //Option 3: Write entry
+            if (selection == 3) {
+                if (journalLoaded == true) {
+                    Entry newEntry = writeEntry(prompts);
+                    journal.addEntry(journal, newEntry);
+                }
+                else {
+                    Console.WriteLine("\nError: No journal loaded.");
+                }
+            }
+
+            //Option 4: View entries
+            if (selection == 4) {
+                if (journalLoaded == true) {
+                    viewEntries(journal);
+                }
+                else {
+                    Console.WriteLine("\nError: No journal loaded.");
+                }
+            }
+
+            //Option 5: Save journal
+            if (selection == 5) {
+                if (journalLoaded == true) {
+                    saveJournal(journal);
+                }
+                else {
+                    Console.WriteLine("\nError: No journal loaded.");
+                }
             }
 
             //Option 6: Exit program
@@ -38,12 +74,10 @@ class Program
             Console.WriteLine("3. Write entry");
             Console.WriteLine("4. View entries");
             Console.WriteLine("5. Save");
-            Console.WriteLine("6. Exit");
-            Console.WriteLine();
+            Console.WriteLine("6. Exit\n");
 
             //Reads user input
             input = Console.ReadLine();
-            Console.WriteLine();
 
             //Determines if input is valid
             if (options.Contains(input)) {
@@ -57,6 +91,20 @@ class Program
             }
         return int.Parse(input);
     }
+
+    static Prompt loadPrompts() {
+        Prompt prompts = new Prompt();
+
+        //Adds prompts
+        prompts._prompts.Add("Who was the most interesting person I interacted with today?");
+        prompts._prompts.Add("What was the best part of my day?");
+        prompts._prompts.Add("How did I see the hand of the Lord in my life today?");
+        prompts._prompts.Add("What was the strongest emotion I felt today?");
+        prompts._prompts.Add("If I had one thing I could do over today, what would it be?");
+        
+        return prompts;
+    }
+
     static void createJournal() {
         //Get variables for new Journal from user
         Console.Write("\nWhat is the filename? (must end with .txt extension): ");
@@ -76,6 +124,58 @@ class Program
         string[] lines = System.IO.File.ReadAllLines(fileName);
         string author = lines[0];
         Journal journal = new Journal(author, fileName);
+
+        //Iterates through each line in the file after author and creates entries to add the journals list of entries
+        foreach(string line in lines) {
+            if(line != author) {
+                Entry entry = new Entry("", "", "");
+                string[] parts = line.Split("|");
+                entry._date = parts[0];
+                entry._prompt = parts[1];
+                entry._response = parts[2];
+                journal._entries.Append(entry);
+            }
+        }    
         return journal;
+        
+    }
+    static Entry writeEntry(Prompt prompts) {
+        //Gives the user a random prompt
+        string prompt = prompts.selectRandom();
+        Console.WriteLine($"\n{prompt}");
+
+        //Gets response from user
+        string response = Console.ReadLine();
+
+        //Gets current date
+        DateTime theCurrentTime = DateTime.Now;
+        string date = theCurrentTime.ToShortDateString();
+
+        //Creates new Entry object to return
+        Entry entry = new Entry(date, prompt, response);
+        return entry;
+    }
+    static void viewEntries(Journal journal) {
+        //Prints author
+        Console.WriteLine($"\nAuthor: {journal._author}");
+
+        //Iterates through entries and prints date, prompt, and response for each
+        foreach (Entry entry in journal._entries) {
+            Console.WriteLine($"\nDate: {entry._date}\n{entry._prompt}\n\n{entry._response}");
+        }
+    }
+    static void saveJournal(Journal journal) {
+        //Clean all text from file
+        File.WriteAllText(journal._fileName, journal._author);
+        using (StreamWriter outputFile = new StreamWriter(journal._fileName))
+        {
+            //Write author to first line
+            outputFile.WriteLine($"{journal._author}");
+
+            //Write each entry to file with date on line 1, prompton line 2, and response on line 3
+            foreach (Entry entry in journal._entries) {
+                outputFile.WriteLine($"{entry._date}|{entry._prompt}|{entry._response}");
+            }
+        }
     }
 }

@@ -1,9 +1,9 @@
 public class Entry{
-    private string _date;
-    private Prompt _prompt;
-    private string _response;
+    public string _date;
+    public string _prompt;
+    public string _response;
 
-    public Entry(string date, Prompt prompt, string response){
+    public Entry(string date, string prompt, string response){
         _date = date;
         _prompt = prompt;
         _response = response;
