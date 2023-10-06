@@ -132,7 +132,7 @@ class Program
                 entry._date = parts[0];
                 entry._prompt = parts[1];
                 entry._response = parts[2];
-                journal._entries.Append(entry);
+                journal._entries.Add(entry);
             }
         }    
         return journal;
