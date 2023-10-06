@@ -6,10 +6,9 @@ class Program
     static void Main(string[] args) {
         bool exit = false;
         bool journalLoaded = false;
+        Journal journal = new Journal("", "");
+        Prompt prompts = loadPrompts();
         while (exit == false) {
-            Prompt prompts = loadPrompts();
-            Journal journal = new Journal("", "");
-
             //Main menu
             int selection = mainMenu();
 
@@ -161,7 +160,7 @@ class Program
 
         //Iterates through entries and prints date, prompt, and response for each
         foreach (Entry entry in journal._entries) {
-            Console.WriteLine($"\nDate: {entry._date}\n{entry._prompt}\n\n{entry._response}");
+            Console.WriteLine($"\n{entry._date} {entry._prompt}\n{entry._response}");
         }
     }
     static void saveJournal(Journal journal) {
