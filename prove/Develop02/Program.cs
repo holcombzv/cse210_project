@@ -100,6 +100,11 @@ class Program
         prompts._prompts.Add("How did I see the hand of the Lord in my life today?");
         prompts._prompts.Add("What was the strongest emotion I felt today?");
         prompts._prompts.Add("If I had one thing I could do over today, what would it be?");
+        prompts._prompts.Add("What fun or interesting facts did you find out today?");
+        prompts._prompts.Add("What acts of service did you accomplish today?");
+        prompts._prompts.Add("What did you spend the most time doing today? Was there anything else you wish you had spent more time on instead?");
+        prompts._prompts.Add("What progress towards your personal goals did you accomplish today?");
+        prompts._prompts.Add("What are you most proud of today?");
         
         return prompts;
     }
