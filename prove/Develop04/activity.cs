@@ -1,4 +1,4 @@
-public class Activity {
+public abstract class Activity {
     private string _name;
     private string _description;
     private int _duration;
@@ -19,11 +19,16 @@ public class Activity {
         }
         Console.Clear();
     }
+    public string getRandom(List<string> list) {
+        var random = new Random();
+        int index = random.Next(list.Count);
+        return list[index];
+    }
     public int startMessage() {
         // Prints a start message to the user in the console and calls the pause function
         Console.WriteLine($"{_name}\n{_description}\n\nWhat is the duration(sec.):");
         int duration = int.Parse(Console.ReadLine());
-        pause(4);
+        pause(3);
         Console.Clear();
         return duration;
     }
@@ -31,6 +36,7 @@ public class Activity {
         // Prints an end message to the user in the console and calls the pause function
         Console.WriteLine($"Great job!");
         Thread.Sleep(1500);
+        Console.Clear();
         Console.WriteLine($"{_name}\nDuration: {_duration} s.");
         Thread.Sleep(4000);
         Console.Clear();

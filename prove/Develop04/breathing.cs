@@ -11,8 +11,8 @@ public class Breathing : Activity {
         string breatheIn = "Breathe in...";
         string breatheOut = "Breathe out...";
 
-        int time = base.startMessage();
-        base.setDuration(time);
+        int time = startMessage();
+        setDuration(time);
         while(time > 0) {
             breathe(breathDuration, breatheIn);
             breathe(breathDuration, breatheOut);
@@ -20,6 +20,6 @@ public class Breathing : Activity {
         }
         breathe(breathDuration, breatheIn);
         breathe(breathDuration, breatheOut);
-        base.endMessage();
+        endMessage();
     }
 }
