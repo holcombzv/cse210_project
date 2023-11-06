@@ -5,7 +5,7 @@ public class Reflection: Activity {
         _prompts = prompts;
         _questions = questions;
     }
-    public void run() {
+    public override void run() {
         int waitTime = 10;
         string prompt = getRandom(_prompts);
 

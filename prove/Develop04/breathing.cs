@@ -6,7 +6,7 @@ public class Breathing : Activity {
         Console.Clear();
         base.pause(duration - 1, message);
     }
-    public void run() {
+    public override void run() {
         int breathDuration = 3;
         string breatheIn = "Breathe in...";
         string breatheOut = "Breathe out...";

@@ -9,6 +9,9 @@ public abstract class Activity {
     public void setDuration(int duration) {
         _duration = duration;
     }
+    public string getName() {
+        return _name;
+    }
     public void pause(int count, string caption = "") {
         // Pauses and displays an animation in the console for every second indicated in count
         for(int i = count; i >= 1; i --) {
@@ -18,6 +21,9 @@ public abstract class Activity {
             Thread.Sleep(1000);
         }
         Console.Clear();
+    }
+    public void pauseAnimated(int count, string caption = "") {
+        
     }
     public string getRandom(List<string> list) {
         var random = new Random();
@@ -41,4 +47,5 @@ public abstract class Activity {
         Thread.Sleep(4000);
         Console.Clear();
     }
+    public abstract void run();
 }
