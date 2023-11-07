@@ -23,7 +23,19 @@ public abstract class Activity {
         Console.Clear();
     }
     public void pauseAnimated(int count, string caption = "") {
-        
+        DateTime startTime = DateTime.Now;
+        DateTime current = startTime;
+        DateTime endTime = startTime.AddSeconds(count);
+        Console.WriteLine(caption);
+        int pauseTime = 300;
+        while(current < endTime) {
+            Console.Write("\b+");
+            Thread.Sleep(pauseTime);
+            Console.Write("\bx");
+            Thread.Sleep(pauseTime);
+            current = DateTime.Now;
+        }
+        Console.Clear();
     }
     public string getRandom(List<string> list) {
         var random = new Random();

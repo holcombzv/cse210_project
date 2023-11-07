@@ -22,6 +22,10 @@ public class Listening: Activity {
             current = DateTime.Now;
             Console.Clear();
         }
+
+        Console.WriteLine($"{_responses.Count} items entered.");
+        Thread.Sleep(3000);
+        Console.Clear();
         endMessage();
     }
 }

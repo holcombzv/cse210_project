@@ -18,7 +18,7 @@ public class Reflection: Activity {
         while(time > 0) {
             string question = getRandom(_questions);
             string message = $"{prompt}\n\n{question}";
-            pause(waitTime - 1, message);
+            pauseAnimated(waitTime, message);
             time -= waitTime;
         }
         endMessage();

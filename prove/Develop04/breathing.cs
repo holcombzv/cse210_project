@@ -1,10 +1,10 @@
 public class Breathing : Activity {
     public Breathing(string name, string description): base(name, description) {}
     private void breathe(int duration, string message) {
-        Console.WriteLine($"{message}\n{duration}");
-        Thread.Sleep(1000);
+        DateTime current = DateTime.Now;
+        DateTime endTime = current.AddSeconds(duration);
         Console.Clear();
-        base.pause(duration - 1, message);
+        pauseAnimated(duration, message);
     }
     public override void run() {
         int breathDuration = 3;
@@ -12,11 +12,12 @@ public class Breathing : Activity {
         string breatheOut = "Breathe out...";
 
         int time = startMessage();
-        setDuration(time);
-        while(time > 0) {
+        DateTime current = DateTime.Now;
+        DateTime endTime = current.AddSeconds(time);
+        while(current < endTime) {
             breathe(breathDuration, breatheIn);
             breathe(breathDuration, breatheOut);
-            time -= 2*breathDuration;
+            current = DateTime.Now;
         }
         breathe(breathDuration, breatheIn);
         breathe(breathDuration, breatheOut);
