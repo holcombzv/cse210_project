@@ -14,6 +14,7 @@ public class Breathing : Activity {
         int time = startMessage();
         DateTime current = DateTime.Now;
         DateTime endTime = current.AddSeconds(time);
+        setDuration(time);
         while(current < endTime) {
             breathe(breathDuration, breatheIn);
             breathe(breathDuration, breatheOut);
