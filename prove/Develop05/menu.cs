@@ -24,7 +24,7 @@ public class Menu {
         showOptions();
         Console.WriteLine($"");
         int selection = int.Parse(Console.ReadLine());
-        _selection = _options[selection];
+        _selection = _options[selection - 1];
         Console.Clear();
     }
     public void runSelection() {
@@ -33,7 +33,19 @@ public class Menu {
             user.addGoal(goal);
         }
         else if (_selection == _options[1]) {
+            completeGoal();
+        }
+        else if (_selection == _options[2]) {
+            listGoals();
+        }
+        else if (_selection == _options[3]) {
+            showScore();
+        }
+        else if (_selection == _options[4]) {
 
+        }
+        else if (_selection == _options[5]) {
+            
         }
     }
     private SimpleGoal newSimpleGoal() {
@@ -79,11 +91,25 @@ public class Menu {
         }
         return goal;
     }
-    public void listGoals() {
+    private void listGoals() {
         int i = 1;
         foreach (Goal goal in user.getGoals()) {
             Console.WriteLine($"{i}. {goal.list()}");
             i ++;
         }
+    }
+    public void completeGoal() {
+        Console.WriteLine("What goal do you want to complete?:\n");
+        listGoals();
+        Console.WriteLine();
+        int index = int.Parse(Console.ReadLine());
+        List<Goal> goals = user.getGoals();
+        goals[index - 1].Complete(user);
+        Console.Clear();
+    }
+    public void showScore() {
+        int score = user.getPoints();
+        Console.WriteLine($"Current score: {score}\n\n(Enter to continue)");
+        Console.ReadLine();
     }
 }

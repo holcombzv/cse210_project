@@ -13,6 +13,12 @@ public class User {
     public List<Goal> getGoals() {
         return _goals;
     }
+    public int getPoints() {
+        return _points;
+    }
+    public void setGoals(List<Goal> goals) {
+        _goals = goals;
+    }
     public void addGoal(Goal goal) {
         _goals.Add(goal);
     }
