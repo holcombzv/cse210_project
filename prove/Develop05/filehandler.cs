@@ -13,13 +13,18 @@ public class FileHandler {
         string[] lines = System.IO.File.ReadAllLines(fileName);
 
     }
-    public void save() {
+    public void save(string fileName = _fileName) {
+        _fileName = fileName;
+        string path = $"{_fileName}.txt";
+        if(File.Exists(path)) {
+             _file = new StreamWriter(_fileName);
+        }
         File.WriteAllText(_fileName, "");
-        using(StreamWriter newSave = _file) {
-            newSave.WriteLine(_user.getName());
-            newSave.WriteLine(_user.getPoints());
+        using(StreamWriter save = _file) {
+            save.WriteLine(_user.getName());
+            save.WriteLine(_user.getPoints());
             foreach(Goal goal in _user.getGoals()) {
-                
+                save.WriteLine(goal.list());
             }
         }
     }
