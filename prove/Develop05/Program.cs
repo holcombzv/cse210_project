@@ -4,6 +4,12 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop05 World!");
+        Console.Clear();
+        Menu menu = new Menu();
+        menu.login();
+        while(true) {
+            menu.select();
+            menu.runSelection();
+        }
     }
 }

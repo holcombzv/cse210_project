@@ -1,9 +1,8 @@
 public class EternalGoal: Goal {
-    public EternalGoal(string name, int points): base(name, points) { }
+    public EternalGoal(string name, int points = 0): base(name, points) { }
     public override void Complete(User user)
     {
         base.Complete(user);
-        _complete = true;
     }
     public override string list()
     {
@@ -16,5 +15,9 @@ public class EternalGoal: Goal {
         }
         text += $" {_name}";
         return text;
+    }
+    public override string saveGoal()
+    {
+        return $"eternal|{_name}|{_points}";
     }
 }

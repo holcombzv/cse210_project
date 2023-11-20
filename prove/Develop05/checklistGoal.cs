@@ -1,7 +1,7 @@
 public class ChecklistGoal: Goal {
     private int _finish;
     private int _current;
-    public ChecklistGoal(string name, int points, int finish): base(name, points) {
+    public ChecklistGoal(string name, int finish, int points = 0): base(name, points) {
         _finish = finish;
         _current = 0;
     }
@@ -25,5 +25,12 @@ public class ChecklistGoal: Goal {
         text += $" {_name}";
         return text;
     }
-
+    public override string save() {
+        string text = $"{_name}|{_points}|{_finish}|{_current}";
+        return text;
+    }
+    public override string saveGoal()
+    {
+        return $"checklist|{_name}|{_points}|{_complete}|{_current}|{_finish}";
+    }
 }

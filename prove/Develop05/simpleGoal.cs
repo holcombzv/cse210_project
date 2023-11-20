@@ -1,5 +1,5 @@
 public class SimpleGoal: Goal {
-    public SimpleGoal(string name, int points): base(name, points) { }
+    public SimpleGoal(string name, int points = 0): base(name, points) { }
     public override void Complete(User user) {
         base.Complete(user);
         _complete = true;
@@ -14,5 +14,9 @@ public class SimpleGoal: Goal {
         }
         text += $" {_name}";
         return text;
+    }
+    public override string saveGoal()
+    {
+        return $"simple|{_name}|{_points}|{_complete}";
     }
 }
