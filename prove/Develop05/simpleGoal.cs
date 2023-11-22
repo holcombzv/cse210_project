@@ -1,5 +1,5 @@
 public class SimpleGoal: Goal {
-    public SimpleGoal(string name, int points = 0): base(name, points) { }
+    public SimpleGoal(string name, int points = 0, bool complete = false): base(name, points, complete) { }
     public override void Complete(User user) {
         base.Complete(user);
         _complete = true;

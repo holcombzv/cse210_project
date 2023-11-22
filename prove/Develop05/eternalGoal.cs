@@ -1,5 +1,5 @@
 public class EternalGoal: Goal {
-    public EternalGoal(string name, int points = 0): base(name, points) { }
+    public EternalGoal(string name, int points = 0): base(name, points, false) { }
     public override void Complete(User user)
     {
         base.Complete(user);

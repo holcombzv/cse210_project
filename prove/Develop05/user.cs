@@ -16,11 +16,20 @@ public class User {
     public int getPoints() {
         return _points;
     }
+    public void setName(string name) {
+        _name = name;
+    }
+    public void setPoints(int points) {
+        _points = points;
+    }
     public void setGoals(List<Goal> goals) {
         _goals = goals;
     }
     public void addGoal(Goal goal) {
         _goals.Add(goal);
+    }
+    public void removeGoal(Goal goal) {
+        _goals.Remove(goal);
     }
     public void addPoints(int points) {
         _points += points;
