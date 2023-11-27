@@ -63,6 +63,9 @@ public class Menu {
         else if (_selection == _options[3]) {
             // Show Goal List
             listGoals();
+            Console.WriteLine("\n(Enter to continue)");
+            Console.ReadLine();
+            Console.Clear();
         }
         else if (_selection == _options[4]) {
             // Show Score
@@ -133,9 +136,6 @@ public class Menu {
             Console.WriteLine($"{i}. {goal.list()}");
             i ++;
         }
-        Console.WriteLine("\n(Enter to continue)");
-        Console.ReadLine();
-        Console.Clear();
     }
     public void completeGoal() {
         // Calls the complete method for the selected goal.
@@ -162,5 +162,6 @@ public class Menu {
         int score = _user.getPoints();
         Console.WriteLine($"Current score: {score}\n\n(Enter to continue)");
         Console.ReadLine();
+        Console.Clear();
     }
 }
