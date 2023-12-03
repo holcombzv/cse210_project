@@ -2,4 +2,3 @@ Zach
 40
 simple|Simple|10|True
 eternal|Eternal|10
-checklist|Check|10|2|5|True|2
