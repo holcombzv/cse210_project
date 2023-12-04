@@ -1,14 +1,14 @@
 public class FiveCrown : Game
 {
     int _round;
-    public FiveCrown(string name) : base(name)
+    public FiveCrown() : base("FiveCrown")
     {
         _round = 1;
     }
     public override void End()
     {
         Console.WriteLine($"Game Over!!!");
-        List<User> sortedPlayers = base.getPlayers().OrderBy(player => player.GetPoints()).ToList();
+        List<User> sortedPlayers = base.GetPlayers().OrderBy(player => player.GetPoints()).ToList();
         int n = 1;
         foreach(User player in sortedPlayers)
         {
@@ -22,7 +22,7 @@ public class FiveCrown : Game
     }
     public override void Score()
     {
-        foreach(User player in base.getPlayers())
+        foreach(User player in base.GetPlayers())
         {
             Console.WriteLine($"How many points did {player.GetName()} earn?");
             player.AddPoints(int.Parse(Console.ReadLine()));
@@ -40,7 +40,7 @@ public class FiveCrown : Game
                 Score();
                 Console.WriteLine($"Round {_round} totals:");
                 int n = 1;
-                foreach(User player in base.getPlayers())
+                foreach(User player in base.GetPlayers())
                 {
                     Console.WriteLine($"{n}. {player.GetName()} {player.GetPoints()}");
                 }

@@ -1,22 +1,21 @@
 public class Quirkle : Game
 {
-    private User _currentPlayer;
     public Quirkle() : base("Qwirkle")
     {
 
     }
     public override void Score()
     {
-        Console.WriteLine($"How many points did {_currentPlayer.GetName()} get?");
+        Console.WriteLine($"How many points did {base.GetCurrentPlayer().GetName()} get?");
         int points = int.Parse(Console.ReadLine());
-        _currentPlayer.AddPoints(points);
+        base.GetCurrentPlayer().AddPoints(points);
     }
     public override void Start()
     {
         base.Start();
         Console.WriteLine("Who is going first?");
         string name = Console.ReadLine();
-        _currentPlayer = base.FindPlayer(name);
+        base.SetCurrrentPlayer(base.FindPlayer(name));
         Console.Clear();
         while(true)
         {
@@ -27,13 +26,13 @@ public class Quirkle : Game
                 Console.Clear();
                 End();
             }
-            _currentPlayer = NextPlayer();
+            base.SetCurrrentPlayer(base.NextPlayer());
             Console.Clear();
         }
     }
     public override void End()
     {
-        List<User> sortedPlayers = base.getPlayers().OrderByDescending(player => player.GetPoints()).ToList();
+        List<User> sortedPlayers = base.GetPlayers().OrderByDescending(player => player.GetPoints()).ToList();
         int n = 1;
         Console.WriteLine("Results:");
         foreach(User player in sortedPlayers)

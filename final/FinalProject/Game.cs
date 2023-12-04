@@ -11,9 +11,17 @@ public abstract class Game
     {
         return _name;
     }
-    public List<User> getPlayers()
+    public List<User> GetPlayers()
     {
         return _players;
+    }
+    public User GetCurrentPlayer()
+    {
+        return _currentPlayer;
+    }
+    public void SetCurrrentPlayer(User player)
+    {
+        _currentPlayer = player;
     }
     public void AddUser(User newPlayer)
     {
@@ -45,7 +53,7 @@ public abstract class Game
     public User NextPlayer()
     {
         int index = _players.IndexOf(_currentPlayer);
-        if(index > _players.Count())
+        if(index >= _players.Count() - 1)
         {
             index = 0;
         }

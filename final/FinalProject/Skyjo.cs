@@ -8,7 +8,7 @@ public class Skyjo : Game
     public override void End()
     {
         Console.WriteLine($"Game Over!!! {highScore.GetName()} has earned 100 points!\n\nResults:");
-        List<User> sortedPlayers = base.getPlayers().OrderBy(player => player.GetPoints()).ToList();
+        List<User> sortedPlayers = base.GetPlayers().OrderBy(player => player.GetPoints()).ToList();
         int n = 1;
         foreach(User player in sortedPlayers)
         {
@@ -22,7 +22,7 @@ public class Skyjo : Game
     }
     public override void Score()
     {
-        foreach(User player in base.getPlayers())
+        foreach(User player in base.GetPlayers())
         {
             Console.WriteLine($"How many points did {player.GetName()} get?");
             int points = int.Parse(Console.ReadLine());
@@ -39,7 +39,7 @@ public class Skyjo : Game
             {
                 Score();
                 Console.WriteLine("Current totals:");
-                List<User> sortedPlayers = base.getPlayers().OrderBy(player => player.GetPoints()).ToList();
+                List<User> sortedPlayers = base.GetPlayers().OrderBy(player => player.GetPoints()).ToList();
                 int n = 1;
                 foreach(User player in sortedPlayers)
                 {
