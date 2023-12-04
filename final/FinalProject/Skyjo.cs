@@ -33,9 +33,10 @@ public class Skyjo : Game
     public override void Start()
     {
         base.Start();
-        while(true)
-        {
-            if(highScore.GetPoints() < 100)
+    }
+    public override void RunRound()
+    {
+        if(highScore.GetPoints() < 100)
             {
                 Score();
                 Console.WriteLine("Current totals:");
@@ -58,6 +59,5 @@ public class Skyjo : Game
             {
                 End();
             }
-        }
     }
 }

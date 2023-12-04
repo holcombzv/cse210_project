@@ -39,4 +39,22 @@ public class Farkle : Game
         base.SetCurrrentPlayer(currentPlayer);
         Console.Clear();
     }
+    public override void RunRound()
+    {
+        if(highScore.GetPoints() <= 10000)
+        {
+            for(int n = 1; n <= base.GetPlayers().Count(); n ++)
+            {
+                Score();
+            }
+        }
+        else
+        {
+            for(int n = 1; n <= base.GetPlayers().Count(); n ++)
+            {
+                Score();
+            }
+            End();
+        }
+    }
 }

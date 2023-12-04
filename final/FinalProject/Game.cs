@@ -37,6 +37,7 @@ public abstract class Game
         }
         _currentPlayer = _players[0];
     }
+    public abstract void RunRound();
     public abstract void End();
     public User FindPlayer(string name)
     {

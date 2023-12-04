@@ -1,9 +1,11 @@
 public class FiveCrown : Game
 {
     int _round;
+    int _roundMax = 11;
     public FiveCrown() : base("FiveCrown")
     {
         _round = 1;
+        _roundMax = 11;
     }
     public override void End()
     {
@@ -32,10 +34,13 @@ public class FiveCrown : Game
     public override void Start()
     {
         base.Start();
-        _round = 1;
-        while(true)
-        {
-            if(_round <= 11)
+        Console.WriteLine("How many rounds will you be playing?");
+        _roundMax = int.Parse(Console.ReadLine());
+        Console.Clear();
+    }
+    public override void RunRound()
+    {
+        if(_round <= _roundMax)
             {
                 Score();
                 Console.WriteLine($"Round {_round} totals:");
@@ -52,6 +57,5 @@ public class FiveCrown : Game
             {
                 End();
             }
-        }
     }
 }

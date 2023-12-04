@@ -17,18 +17,6 @@ public class Quirkle : Game
         string name = Console.ReadLine();
         base.SetCurrrentPlayer(base.FindPlayer(name));
         Console.Clear();
-        while(true)
-        {
-            Score();
-            Console.WriteLine("If the game is over, type \"End\". Otherwise, just press Enter.");
-            if(Console.ReadLine() == "End")
-            {
-                Console.Clear();
-                End();
-            }
-            base.SetCurrrentPlayer(base.NextPlayer());
-            Console.Clear();
-        }
     }
     public override void End()
     {
@@ -41,5 +29,17 @@ public class Quirkle : Game
             n++;
         }
         System.Environment.Exit(0);
+    }
+    public override void RunRound()
+    {
+        Score();
+            Console.WriteLine("If the game is over, type \"End\". Otherwise, just press Enter.");
+            if(Console.ReadLine() == "End")
+            {
+                Console.Clear();
+                End();
+            }
+            base.SetCurrrentPlayer(base.NextPlayer());
+            Console.Clear();
     }
 }
