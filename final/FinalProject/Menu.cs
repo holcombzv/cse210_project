@@ -1,7 +1,7 @@
 public class Menu
 {
     private List<string> _options;
-    private Game _game;
+    private Game _game = new Quirkle();
     public Menu()
     {
         _options = new List<string> {"Add Player", "Start Game", "Exit"};
@@ -56,7 +56,7 @@ public class Menu
     public void SelectGame()
     {
         List<string> games = new List<string> {"Farkle", "Skyjo", "FiveCrown", "Quirkle"};
-        Console.WriteLine("Which game do you want to play?");
+        Console.WriteLine("Which game do you want to play?\n");
         int n = 1;
         foreach(string game in games)
         {
@@ -102,5 +102,6 @@ public class Menu
                 }
                 break;
         }
+        Console.Clear();
     }
 }

@@ -34,7 +34,7 @@ public class Quirkle : Game
     {
         Score();
             Console.WriteLine("If the game is over, type \"End\". Otherwise, just press Enter.");
-            if(Console.ReadLine() == "End")
+            if(Console.ReadLine().ToLower() == "end")
             {
                 Console.Clear();
                 End();

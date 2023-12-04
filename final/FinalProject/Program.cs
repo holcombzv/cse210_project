@@ -7,6 +7,7 @@ class Program
         Menu menu = new Menu();
         while(true)
         {
+            Console.Clear();
             menu.runSelection(menu.Select());
         }
     }
