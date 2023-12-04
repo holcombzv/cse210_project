@@ -3,7 +3,7 @@ public class Farkle : Game
     User highScore;
     public Farkle() : base("Farkle")
     {
-
+        highScore = new User("");
     }
     public override void End()
     {
