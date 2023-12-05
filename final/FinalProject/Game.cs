@@ -23,10 +23,16 @@ public abstract class Game
     {
         _currentPlayer = player;
     }
+    public void SetName(string name)
+    {
+        _name = name;
+    }
     public void AddUser(User newPlayer)
     {
         _players.Add(newPlayer);
     }
+    public abstract string WriteSave();
+    public abstract void Load();
     public abstract void Score();
     public virtual void Start()
     {

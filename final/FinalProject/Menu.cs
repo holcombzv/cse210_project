@@ -2,9 +2,10 @@ public class Menu
 {
     private List<string> _options;
     private Game _game = new Quirkle();
+    private FileHandler _fileHandler = new FileHandler();
     public Menu()
     {
-        _options = new List<string> {"Add Player", "Start Game", "Exit"};
+        _options = new List<string> {"Add Player", "Start New Game", "Load Game", "Exit"};
     }
     public int Select()
     {
@@ -27,11 +28,54 @@ public class Menu
                 break;
             
             case 1:
-                SelectGame();
+                int game = SelectGame();
+                switch(game)
+                {
+                    case 1:
+                        List<User> usersFark = _game.GetPlayers();
+                        _game = new Farkle();
+                        foreach(User user in usersFark)
+                        {
+                            _game.AddUser(user);
+                        }
+                        break;
+                    
+                    case 2:
+                        List<User> usersSkyj = _game.GetPlayers();
+                        _game = new Skyjo();
+                        foreach(User user in usersSkyj)
+                        {
+                            _game.AddUser(user);
+                        }
+                        break;
+                    
+                    case 3:
+                        List<User> usersFive = _game.GetPlayers();
+                        _game = new FiveCrown();
+                        foreach(User user in usersFive)
+                        {
+                            _game.AddUser(user);
+                        }
+                        break;
+                    
+                    case 4:
+                        List<User> usersQuir = _game.GetPlayers();
+                        _game = new Quirkle();
+                        foreach(User user in usersQuir)
+                        {
+                            _game.AddUser(user);
+                        }
+                        break;
+                }
                 Run();
                 break;
             
             case 2:
+                int loadGame = SelectGame();
+                LoadGame(loadGame);
+                Run();
+                break;
+            case 3:
                 System.Environment.Exit(0);
                 break;
         }
@@ -39,9 +83,12 @@ public class Menu
     public void Run()
     {
         _game.Start();
+        _fileHandler.SetGame(_game);
+        _fileHandler.Save();
         while(true)
         {
             _game.RunRound();
+            _fileHandler.Save();
         }
     }
     public void Display()
@@ -53,7 +100,7 @@ public class Menu
             n ++;
         }
     }
-    public void SelectGame()
+    public int SelectGame()
     {
         List<string> games = new List<string> {"Farkle", "Skyjo", "FiveCrown", "Quirkle"};
         Console.WriteLine("Which game do you want to play?\n");
@@ -64,44 +111,32 @@ public class Menu
             n ++;
         }
         int selection = int.Parse(Console.ReadLine());
-        switch(selection)
+        Console.Clear();
+        return selection;
+    }
+    public void LoadGame(int game)
+    {
+        switch(game)
         {
             case 1:
-                List<User> usersFark = _game.GetPlayers();
                 _game = new Farkle();
-                foreach(User user in usersFark)
-                {
-                    _game.AddUser(user);
-                }
+                _game.Load();
                 break;
-            
+
             case 2:
-                List<User> usersSkyj = _game.GetPlayers();
                 _game = new Skyjo();
-                foreach(User user in usersSkyj)
-                {
-                    _game.AddUser(user);
-                }
+                _game.Load();
                 break;
-            
+
             case 3:
-                List<User> usersFive = _game.GetPlayers();
                 _game = new FiveCrown();
-                foreach(User user in usersFive)
-                {
-                    _game.AddUser(user);
-                }
+                _game.Load();
                 break;
-            
+
             case 4:
-                List<User> usersQuir = _game.GetPlayers();
                 _game = new Quirkle();
-                foreach(User user in usersQuir)
-                {
-                    _game.AddUser(user);
-                }
+                _game.Load();
                 break;
         }
-        Console.Clear();
     }
 }

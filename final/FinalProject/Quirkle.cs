@@ -1,8 +1,37 @@
 public class Quirkle : Game
 {
-    public Quirkle() : base("Qwirkle")
+    public Quirkle() : base("Quirkle")
     {
 
+    }
+    public override string WriteSave()
+    {
+        string text = $"{base.GetName()}";
+        foreach(User player in base.GetPlayers())
+        {
+            text += $"\n{player.WriteSave()}";
+        }
+        return text;
+    }
+    public override void Load()
+    {
+        string[] linesRaw = System.IO.File.ReadAllLines(base.GetName());
+        List<string> lines = new List<string>();
+        foreach(string item in linesRaw)
+        {
+            lines.Add(item);
+        }
+        
+        String[] items1 = lines[0].Split('|');
+        base.SetName(items1[0]);
+        lines.RemoveAt(0);
+        foreach(string line in lines)
+        {
+            String[] items = line.Split('|');
+            User player = new User(items[0]);
+            player.AddPoints(int.Parse(items[1]));
+            base.AddUser(player);
+        }
     }
     public override void Score()
     {

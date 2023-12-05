@@ -7,6 +7,37 @@ public class FiveCrown : Game
         _round = 1;
         _roundMax = 11;
     }
+    public override string WriteSave()
+    {
+        string text = $"{base.GetName()}|{_round}|{_roundMax}";
+        foreach(User player in base.GetPlayers())
+        {
+            text += $"\n{player.WriteSave()}";
+        }
+        return text;
+    }
+    public override void Load()
+    {
+        string[] linesRaw = System.IO.File.ReadAllLines(base.GetName());
+        List<string> lines = new List<string>();
+        foreach(string item in linesRaw)
+        {
+            lines.Add(item);
+        }
+        
+        String[] items1 = lines[0].Split('|');
+        base.SetName(items1[0]);
+        _round = int.Parse(items1[1]);
+        _roundMax = int.Parse(items1[2]);
+        lines.RemoveAt(0);
+        foreach(string line in lines)
+        {
+            String[] items = line.Split('|');
+            User player = new User(items[0]);
+            player.AddPoints(int.Parse(items[1]));
+            base.AddUser(player);
+        }
+    }
     public override void End()
     {
         Console.WriteLine($"Game Over!!!");

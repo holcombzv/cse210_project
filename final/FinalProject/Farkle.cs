@@ -1,13 +1,47 @@
 public class Farkle : Game
 {
-    User highScore;
+    User _highScore;
     public Farkle() : base("Farkle")
     {
-        highScore = new User("");
+        _highScore = new User("");
+    }
+    public override string WriteSave()
+    {
+        string text = $"{base.GetName()}";
+        text += $"\n{_highScore.WriteSave()}";
+        foreach(User player in base.GetPlayers())
+        {
+            text += $"\n{player.WriteSave()}";
+        }
+        return text;
+    }
+    public override void Load()
+    {
+        string[] linesRaw = System.IO.File.ReadAllLines(base.GetName());
+        List<string> lines = new List<string>();
+        foreach(string item in linesRaw)
+        {
+            lines.Add(item);
+        }
+        
+        String[] items1 = lines[0].Split('|');
+        base.SetName(items1[0]);
+        lines.RemoveAt(0);
+        items1 = lines[0].Split('|');
+        _highScore = new User(items1[0]);
+        _highScore.AddPoints(int.Parse(items1[1]));
+        lines.RemoveAt(0);
+        foreach(string line in lines)
+        {
+            String[] items = line.Split('|');
+            User player = new User(items[0]);
+            player.AddPoints(int.Parse(items[1]));
+            base.AddUser(player);
+        }
     }
     public override void End()
     {
-        Console.WriteLine($"Game Over!!! {highScore.GetName()} has earned 10,000 points!\n\nResults:");
+        Console.WriteLine($"Game Over!!! {_highScore.GetName()} has earned 10,000 points!\n\nResults:");
         List<User> sortedPlayers = base.GetPlayers().OrderBy(player => player.GetPoints()).ToList();
         int n = 1;
         foreach(User player in sortedPlayers)
@@ -41,7 +75,7 @@ public class Farkle : Game
     }
     public override void RunRound()
     {
-        if(highScore.GetPoints() <= 10000)
+        if(_highScore.GetPoints() <= 10000)
         {
             for(int n = 1; n <= base.GetPlayers().Count(); n ++)
             {

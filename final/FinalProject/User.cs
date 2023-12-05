@@ -19,4 +19,9 @@ public class User
     {
         _points += points;
     }
+    public string WriteSave()
+    {
+        string text = $"{_name}|{_points}";
+        return text;
+    }
 }
