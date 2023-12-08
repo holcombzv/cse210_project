@@ -6,6 +6,7 @@ public abstract class Game
     public Game(string name)
     {
         _name = name;
+        _currentPlayer = new User("start");
     }
     public string GetName()
     {
@@ -41,7 +42,6 @@ public abstract class Game
             Console.WriteLine("Please add players before starting game.");
             System.Environment.Exit(0);
         }
-        _currentPlayer = _players[0];
     }
     public abstract void RunRound();
     public abstract void End();

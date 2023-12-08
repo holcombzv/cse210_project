@@ -70,28 +70,31 @@ public class Skyjo : Game
     }
     public override void RunRound()
     {
+        Score();
+        foreach(User player in base.GetPlayers())
+        {
+            if(player.GetPoints() > _highScore.GetPoints())
+            {
+                _highScore = player;
+            }
+        }
         if(_highScore.GetPoints() < 100)
+        {
+            Console.WriteLine("Current totals:");
+            List<User> sortedPlayers = base.GetPlayers().OrderBy(player => player.GetPoints()).ToList();
+            int n = 1;
+            foreach(User player in sortedPlayers)
             {
-                Score();
-                Console.WriteLine("Current totals:");
-                List<User> sortedPlayers = base.GetPlayers().OrderBy(player => player.GetPoints()).ToList();
-                int n = 1;
-                foreach(User player in sortedPlayers)
-                {
-                    if(player.GetPoints() > _highScore.GetPoints())
-                    {
-                        _highScore = player;
-                    }
-                    Console.WriteLine($"{n}. {player.GetName()} {player.GetPoints()}");
-                    n ++;
-                }
-                Console.WriteLine("\nPress enter to continue");
-                Console.ReadLine();
-                Console.Clear();
+                Console.WriteLine($"{n}. {player.GetName()} {player.GetPoints()}");
+                n ++;
             }
-            else
-            {
-                End();
-            }
-    }
+            Console.WriteLine("\nPress enter to continue");
+            Console.ReadLine();
+            Console.Clear();
+        }
+        else
+        {
+            End();
+        }
+}
 }

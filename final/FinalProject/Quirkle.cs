@@ -7,6 +7,7 @@ public class Quirkle : Game
     public override string WriteSave()
     {
         string text = $"{base.GetName()}";
+        text += $"\n{base.GetCurrentPlayer().GetName()}";
         foreach(User player in base.GetPlayers())
         {
             text += $"\n{player.WriteSave()}";
@@ -25,26 +26,44 @@ public class Quirkle : Game
         String[] items1 = lines[0].Split('|');
         base.SetName(items1[0]);
         lines.RemoveAt(0);
+        string currentPlayerName = lines[0];
+        lines.RemoveAt(0);
         foreach(string line in lines)
         {
             String[] items = line.Split('|');
             User player = new User(items[0]);
             player.AddPoints(int.Parse(items[1]));
             base.AddUser(player);
+            if(player.GetName() == currentPlayerName)
+            {
+                SetCurrrentPlayer(player);
+            }
         }
     }
     public override void Score()
     {
-        Console.WriteLine($"How many points did {base.GetCurrentPlayer().GetName()} get?");
-        int points = int.Parse(Console.ReadLine());
-        base.GetCurrentPlayer().AddPoints(points);
+        Console.WriteLine($"How many points did {base.GetCurrentPlayer().GetName()} get? Just press enter to end game.");
+        string text = Console.ReadLine();
+        if(text == "")
+        {
+            End();
+        }
+        else
+        {
+            int points = int.Parse(text);
+            base.GetCurrentPlayer().AddPoints(points);
+            base.SetCurrrentPlayer(base.NextPlayer());
+        }
     }
     public override void Start()
     {
         base.Start();
-        Console.WriteLine("Who is going first?");
-        string name = Console.ReadLine();
-        base.SetCurrrentPlayer(base.FindPlayer(name));
+        if(base.GetCurrentPlayer().GetName() == "start")
+        {
+            Console.WriteLine("Who is going first?");
+            string name = Console.ReadLine();
+            base.SetCurrrentPlayer(base.FindPlayer(name));
+        }
         Console.Clear();
     }
     public override void End()
@@ -62,13 +81,6 @@ public class Quirkle : Game
     public override void RunRound()
     {
         Score();
-            Console.WriteLine("If the game is over, type \"End\". Otherwise, just press Enter.");
-            if(Console.ReadLine().ToLower() == "end")
-            {
-                Console.Clear();
-                End();
-            }
-            base.SetCurrrentPlayer(base.NextPlayer());
-            Console.Clear();
+        Console.Clear();
     }
 }
