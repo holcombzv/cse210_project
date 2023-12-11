@@ -4,7 +4,7 @@ public class FiveCrown : Game
     int _roundMax;
     public FiveCrown() : base("FiveCrown")
     {
-        _round = 1;
+        _round = 0;
         _roundMax = 11;
     }
     public override string WriteSave()
@@ -73,17 +73,19 @@ public class FiveCrown : Game
             {
                 _roundMax = int.Parse(roundMax);
             }
+            _round = 1;
         }
         Console.Clear();
     }
     public override void RunRound()
     {
-        if(_round <= _roundMax)
+        Score();
+        if(_round < _roundMax)
         {
-            Score();
             Console.WriteLine($"Round {_round} totals:");
+            List<User> sortedPlayers = base.GetPlayers().OrderBy(player => player.GetPoints()).ToList();
             int n = 1;
-            foreach(User player in base.GetPlayers())
+            foreach(User player in sortedPlayers)
             {
                 Console.WriteLine($"{n}. {player.GetName()} {player.GetPoints()}");
                 n ++;
@@ -96,5 +98,6 @@ public class FiveCrown : Game
         {
             End();
         }
+        _round ++;
     }
 }

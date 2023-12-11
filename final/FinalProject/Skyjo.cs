@@ -41,7 +41,7 @@ public class Skyjo : Game
     }
     public override void End()
     {
-        Console.WriteLine($"Game Over!!! {_highScore.GetName()} has earned 100 points!\n\nResults:");
+        Console.WriteLine($"Game Over!!!\n\nResults:");
         List<User> sortedPlayers = base.GetPlayers().OrderBy(player => player.GetPoints()).ToList();
         int n = 1;
         foreach(User player in sortedPlayers)
@@ -61,6 +61,14 @@ public class Skyjo : Game
             Console.WriteLine($"How many points did {player.GetName()} get?");
             int points = int.Parse(Console.ReadLine());
             player.AddPoints(points);
+            if(player.GetPoints() > _highScore.GetPoints())
+            {
+                _highScore = player;
+                if(_highScore.GetPoints() >= 100)
+                {
+                    Console.WriteLine($"{_highScore.GetName()} has passed 100 points. Final round!");
+                }
+            }
             Console.Clear();
         }
     }
@@ -73,10 +81,7 @@ public class Skyjo : Game
         Score();
         foreach(User player in base.GetPlayers())
         {
-            if(player.GetPoints() > _highScore.GetPoints())
-            {
-                _highScore = player;
-            }
+            
         }
         if(_highScore.GetPoints() < 100)
         {

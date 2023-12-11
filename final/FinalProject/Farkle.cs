@@ -1,6 +1,9 @@
+using System.Reflection.Metadata.Ecma335;
+
 public class Farkle : Game
 {
-    User _highScore;
+    private User _highScore;
+    private bool _finished = false;
     public Farkle() : base("Farkle")
     {
         _highScore = new User("");
@@ -41,7 +44,7 @@ public class Farkle : Game
     }
     public override void End()
     {
-        Console.WriteLine($"Game Over!!! {_highScore.GetName()} has earned 10,000 points!\n\nResults:");
+        Console.WriteLine($"Game Over!!!\n\nResults:");
         List<User> sortedPlayers = base.GetPlayers().OrderBy(player => player.GetPoints()).ToList();
         int n = 1;
         foreach(User player in sortedPlayers)
@@ -59,6 +62,16 @@ public class Farkle : Game
         Console.WriteLine($"How many points did {base.GetCurrentPlayer().GetName()} earn?");
         int points = int.Parse(Console.ReadLine());
         base.GetCurrentPlayer().AddPoints(points);
+        if(base.GetCurrentPlayer().GetPoints() > _highScore.GetPoints() & !_finished)
+        {
+            _highScore = base.GetCurrentPlayer();
+        }
+        if(_highScore.GetPoints() >= 10000 & !_finished)
+        {
+            _finished = true;
+            Console.WriteLine($"\n{_highScore.GetName()} has passed 10,000 points. Final round!");
+            Console.ReadLine();
+        }
         base.SetCurrrentPlayer(base.NextPlayer());
         Console.Clear();
     }
@@ -75,7 +88,7 @@ public class Farkle : Game
     }
     public override void RunRound()
     {
-        if(_highScore.GetPoints() <= 10000)
+        if(_highScore.GetPoints() < 10000)
         {
             for(int n = 1; n <= base.GetPlayers().Count(); n ++)
             {
@@ -86,9 +99,15 @@ public class Farkle : Game
         {
             for(int n = 1; n <= base.GetPlayers().Count(); n ++)
             {
-                Score();
+                if(base.GetCurrentPlayer().GetName() == _highScore.GetName())
+                {
+                    End();
+                }
+                else
+                {
+                    Score();
+                }
             }
-            End();
         }
     }
 }
